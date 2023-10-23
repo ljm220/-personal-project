@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+   <mapper namespace="com.ljm.mapper.BoardMapper">
+   
+ 
+    <resultMap id="boardResultMap" type="com.ljm.domain.Board">
+        <id property="noticeNum" column="NOTICE_NUM"/>
+        <result property="noticeTitle" column="NOTICE_TITLE"/>
+        <result property="noticeContent" column="NOTICE_CONTENT"/>
+        <result property="noticeWriter" column="NOTICE_WRITER"/>
+        <result property="noticeDate" column="NOTICE_DATE"/>
+        <result property="noticeCheck" column="NOTICE_CHECK"/>
+        <result property="noticeLike" column="NOTICE_LIKE"/>
+    </resultMap>
+   
+    <select id="boardAll" resultMap="boardResultMap">
+        SELECT * FROM notice
+    </select>
+    
+    <insert id="insertBoard" parameterType="hashMap">
+   		<![CDATA[
+    		INSERT INTO NOTICE 
+    		(   
+    			NOTICE_NUM,
+	  			NOTICE_TITLE,
+	  			NOTICE_WRITER,
+	  			NOTICE_DATE,
+	  			NOTICE_CHECK, 
+	  			NOTICE_LIKE,
+	  			NOTICE_CONTEXT
+    		) 
+    		VALUES 
+    		( 
+    			NOTICE_SEQ.nextval,
+				#{noticeTitle},
+				#{noticeWriter},
+				SYSDATE,
+				0, 
+				0,
+				#{noticeContext}
+    		) 
+    		]]> 
+    </insert>
+
+<!-- 	( -->
+<!--        		NOTICE_SEQ.nextval, -->
+<!--    			#{noticeNum}, -->
+<!--    			#{noticeTitle}, -->
+<!--    			#{noticeWriter}, -->
+<!--    			#{noticeContext}, -->
+<!--    			) -->
+   
+   </mapper>
